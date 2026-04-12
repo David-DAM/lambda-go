@@ -1,0 +1,26 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+
+  GoLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: provided.al2
+      Handler: bootstrap
+      Architectures:
+        - arm64
+      CodeUri: .
+      MemorySize: 128
+      Timeout: 10
+      Events:
+        Api:
+          Type: HttpApi
+          Properties:
+            Path: /{proxy+}
+            Method: ANY
+
+Outputs:
+  ApiUrl:
+    Description: "HTTP API endpoint"
+    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com/"
