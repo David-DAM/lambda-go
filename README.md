@@ -29,7 +29,7 @@ Este proyecto expone dos rutas:
 
 Instala dependencias y ejecuta los tests:
 ```bash
-go test ./..
+go test
 ```
 
 Para compilar el binario:

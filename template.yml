@@ -3,7 +3,7 @@ Transform: AWS::Serverless-2016-10-31
 
 Resources:
 
-  GoLambda:
+  GoLambdaFunction:
     Type: AWS::Serverless::Function
     Properties:
       Runtime: provided.al2
@@ -13,14 +13,17 @@ Resources:
       CodeUri: .
       MemorySize: 128
       Timeout: 10
-      Events:
-        Api:
-          Type: HttpApi
-          Properties:
-            Path: /{proxy+}
-            Method: ANY
+      FunctionUrlConfig:
+        AuthType: NONE
+        Cors:
+          AllowOrigins:
+            - "*"
+          AllowMethods:
+            - "*"
+          AllowHeaders:
+            - "*"
 
 Outputs:
-  ApiUrl:
-    Description: "HTTP API endpoint"
-    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com/"
+  LambdaUrl:
+    Description: "Lambda Function URL"
+    Value: !GetAtt GoLambdaFunction.FunctionUrl
