@@ -24,6 +24,9 @@ jobs:
       - name: Run tests
         run: go test
 
+      - name: Build Go binary
+        run: GOOS=linux CGO_ENABLED=0 GOARCH=arm64 go build -tags lambda.norpc -o bootstrap main.go
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -32,9 +35,6 @@ jobs:
 
       - name: Install SAM CLI
         run: pip install aws-sam-cli
-
-      - name: SAM Build
-        run: sam build
 
       - name: SAM Deploy
         run: |
