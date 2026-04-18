@@ -8,7 +8,7 @@ permissions:
   contents: read
 
 jobs:
-  deploy:
+  destroy:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,10 +25,7 @@ jobs:
       - name: Install SAM CLI
         run: pip install aws-sam-cli
 
-      - name: SAM Build
-        run: sam build
-
-      - name: SAM Deploy
+      - name: SAM Destroy
         run: |
           sam delete \
           --stack-name go-lambda-stack \
