@@ -10,7 +10,7 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+    environment: Develop
     steps:
 
       - name: Checkout repository
